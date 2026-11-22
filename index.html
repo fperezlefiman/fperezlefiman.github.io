@@ -23,7 +23,8 @@
     padding:30px 18px 64px;
   }
   .wrap{max-width:44rem;margin:0 auto}
-  .prose{max-width:34rem}
+  /* Medida de lectura: 34rem ≈ 63 caracteres a 17,5px (WCAG 1.4.8, cap 80) */
+  .wrap p, .wrap li, .wrap h1, .wrap h2, .wrap h3, .lead{max-width:34rem}
   .meta{
     font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
     font-size:11px; color:var(--dim); letter-spacing:.05em; text-transform:uppercase;
