@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Francisco Pérez Lefiman — Software Engineer fullstack</title>
+<meta name="description" content="Software Engineer fullstack: React/TypeScript, Node.js y backend Kotlin/JVM. Casos con números medidos y sistemas con IA en producción.">
+<meta property="og:title" content="Francisco Pérez Lefiman — Software Engineer fullstack">
+<meta property="og:description" content="Casos con números medidos: reportes masivos, diagnóstico de un defecto de SLA, extensión de correo en producción y automatización con IA.">
+<meta property="og:type" content="website">
+<style>
+  :root{
+    --bg:#14161a; --surface:#1b1e24; --line:#2b303a;
+    --text:#d9dce1; --soft:#a3abb8; --dim:#939cab;
+    --accent:#7fb3ff; --code:#cfe3ff; --codebg:#20242b;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0; background:var(--bg); color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font-size:17.5px; line-height:1.64;
+    padding:30px 18px 64px;
+  }
+  .wrap{max-width:44rem;margin:0 auto}
+  .prose{max-width:34rem}
+  .meta{
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+    font-size:11px; color:var(--dim); letter-spacing:.05em; text-transform:uppercase;
+    display:flex; flex-wrap:wrap; gap:0 10px; margin-bottom:16px;
+  }
+  .meta span+span::before{content:"·"; margin-right:10px; color:var(--line)}
+  h1{font-size:clamp(29px,6.4vw,38px); line-height:1.14; letter-spacing:-.02em; margin:0 0 8px; color:#fff}
+  .role{font-size:19px; line-height:1.45; color:#dfe5ee; margin:0 0 10px; text-wrap:pretty}
+  .role b{color:#fff; font-weight:600}
+  .where{font-size:16px; color:var(--soft); margin:0 0 26px}
+  .lead{
+    background:var(--surface); border:1px solid var(--line); border-radius:6px;
+    padding:16px 16px; font-size:19px; line-height:1.52; color:#e6e9ee; margin:0 0 26px;
+    text-wrap:pretty;
+  }
+  h2{font-size:21px; line-height:1.3; margin:34px 0 12px; color:#fff; letter-spacing:-.01em}
+  h2 .num{font-family:ui-monospace,monospace; font-size:12px; color:var(--accent); margin-right:8px; letter-spacing:.08em}
+  h3{font-size:18px; line-height:1.35; margin:22px 0 6px; color:#fff}
+  p{margin:0 0 13px; text-wrap:pretty}
+  a{color:var(--accent); text-decoration:none; border-bottom:1px solid rgba(127,179,255,.35)}
+  a:hover{border-bottom-color:var(--accent)}
+  ul{margin:8px 0 14px; padding-left:20px}
+  li{margin-bottom:7px}
+  strong{color:#fff}
+  .card{
+    border:1px solid var(--line); border-radius:6px; padding:16px; margin:0 0 14px;
+    background:var(--surface);
+  }
+  .card h3{margin-top:0}
+  .stack{
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:12.5px; color:var(--dim);
+    letter-spacing:.03em; margin:0 0 10px;
+  }
+  .nums{
+    display:flex; flex-wrap:wrap; gap:8px; margin:12px 0 4px; padding:0; list-style:none;
+  }
+  .nums li{
+    margin:0; padding:6px 10px; border-radius:5px; background:#20242b; border:1px solid var(--line);
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:13px; color:var(--code);
+  }
+  .note{
+    border-left:3px solid #3a6a3f; background:#182219; border-radius:0 6px 6px 0;
+    padding:13px 15px; color:#cfe8d4; font-size:16px; margin:20px 0;
+  }
+  .links{display:flex; flex-wrap:wrap; gap:10px; margin:14px 0 0}
+  .links a{
+    display:inline-flex; align-items:center; min-height:44px; padding:0 16px;
+    border:1px solid var(--line); border-radius:6px; background:var(--surface);
+    font-size:15.5px; border-bottom-color:var(--line);
+  }
+  .links a:hover{border-color:#3a6ea8; background:#212630}
+  footer{margin-top:38px; padding-top:16px; border-top:1px solid var(--line); color:var(--dim); font-size:14px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="meta"><span>Portfolio</span><span>Chile · remoto</span><span>Disponible</span></div>
+
+  <h1>Francisco Pérez Lefiman</h1>
+  <p class="role">Software Engineer fullstack — <b>React/TypeScript</b>, <b>Node.js</b> y backend <b>Kotlin/JVM</b>. Sistemas con IA en producción.</p>
+  <p class="where">4 años y 7 meses construyendo producto en una plataforma SaaS B2B · Ingeniero en Computación e Informática (UNAB)</p>
+
+  <p class="lead">Escribo sistemas que corren en producción y los mido. Estos casos usan los números reales del trabajo, no estimaciones: cuántos PDFs salieron, cuántos envíos se corrigieron, cuántas cuentas atiende la extensión.</p>
+
+  <h2><span class="num">01</span>Casos de trabajo</h2>
+
+  <div class="card">
+    <h3>Servicio de reportes: 57.667 PDFs sin un solo fallo</h3>
+    <p class="stack">Kotlin/Ktor · PostgreSQL · ClickHouse · Azure Service Bus · Blob Storage</p>
+    <p>Reemplacé una tubería legada de un solo paso por un servicio que separa la <strong>generación</strong> del <strong>envío</strong>: cola de despacho, almacenamiento de PDFs y estado por reporte. Lo validé con un backfill de 184 corridas antes de tocar producción.</p>
+    <ul class="nums">
+      <li>184 corridas validadas</li>
+      <li>57.667 PDFs</li>
+      <li>131.426 destinatarios</li>
+      <li>0 fallos</li>
+    </ul>
+    <p><strong>Trade-off:</strong> separar generación y envío agrega un estado intermedio que hay que poder auditar. Lo pagué con un modo de envío exclusivo para QA y una migración de la clave de ciclo en dos fases, en vez de un corte único.</p>
+  </div>
+
+  <div class="card">
+    <h3>Un defecto silencioso que inflaba los SLA de un banco</h3>
+    <p class="stack">SQL · ingesta de correo · diagnóstico en producción</p>
+    <p>La ingesta contaba como reenvío las respuestas que traían al cliente en CC/CCO, así que los tiempos de respuesta de los reportes de SLA salían inflados. Antes de tocar código cuantifiqué el alcance sobre datos de producción y usé un control negativo para probar que la corrección no rompía el caso legítimo.</p>
+    <ul class="nums">
+      <li>4.851 envíos mal clasificados</li>
+      <li>396 ejecutivas afectadas</li>
+      <li>hasta +8 puntos de SLA</li>
+    </ul>
+    <p><strong>Lo que casi se pierde:</strong> el defecto no lanzaba errores. Sin medir el alcance primero, el arreglo habría sido un cambio de código sin contexto y el reporte habría seguido mintiendo.</p>
+  </div>
+
+  <div class="card">
+    <h3>Extensión para Gmail y Outlook en producción</h3>
+    <p class="stack">React · TypeScript · Node.js · WebSocket · Kotlin · RabbitMQ</p>
+    <p>Construí de punta a punta una extensión de correo: interfaz en React/TypeScript, bridge en Node.js y servicio de caché en Kotlin, con OAuth2 contra Google y Microsoft Graph. Incluye las secciones de correos derivados y auto-resueltos y el add-in de Outlook sobre WebSocket.</p>
+    <ul class="nums">
+      <li>~440 cuentas</li>
+      <li>~3.900 handshakes/día</li>
+      <li>5 hallazgos de pentest cerrados</li>
+    </ul>
+    <p><strong>Seguridad:</strong> invalidación del JWT al cerrar sesión, separación de claves de firma y verificación, cookies con flags secure/HttpOnly y sin source maps en producción.</p>
+  </div>
+
+  <h2><span class="num">02</span>Proyecto propio, medido y público</h2>
+
+  <div class="card">
+    <h3>AI Automation Suite — cinco módulos con evaluación reproducible</h3>
+    <p class="stack">n8n · FastAPI · PostgreSQL · LLM · WhatsApp Cloud API · Docker Compose</p>
+    <p>Automatización para un negocio real (una clínica dental en Santiago), armada como sistema y no como scripts sueltos: cada módulo tiene su set de 30–40 casos, su medición publicada y su página de caso.</p>
+    <ul>
+      <li><strong>InvoiceFlow:</strong> facturas PDF → gastos validados. 30/30, campos 100%, mediana 2,9 ms.</li>
+      <li><strong>ReplyDesk:</strong> WhatsApp anclado a la información del negocio. 40/40, mediana 1,6 s.</li>
+      <li><strong>LeadScore:</strong> calificación con score explicable. 30/30 niveles.</li>
+      <li><strong>ReportBot:</strong> planilla de ventas → resumen escrito. 30/30, cifras exactas.</li>
+    </ul>
+    <p><strong>La decisión de diseño:</strong> donde hay cifras, el cálculo es determinista y el LLM solo redacta. Montos, porcentajes y scores salen de funciones puras con tolerancias declaradas; el modelo no inventa números.</p>
+    <div class="links">
+      <a href="https://ai.fperez.top/">Ver el sitio</a>
+      <a href="https://ai.fperez.top/case/">Leer los casos</a>
+      <a href="https://github.com/fperezdev/ai-automation-suite">Código en GitHub</a>
+    </div>
+  </div>
+
+  <div class="note"><strong>Sobre los repositorios:</strong> el código del trabajo es privado y pertenece a la empresa. Los casos de arriba están escritos con los números que medí, sin código del empleador.</div>
+
+  <h2><span class="num">03</span>Stack</h2>
+  <ul>
+    <li><strong>Lenguajes:</strong> TypeScript/JavaScript · Kotlin · SQL · Go (ocasional) · Python (ocasional)</li>
+    <li><strong>Frontend:</strong> React · Redux · Vite · Tailwind · extensiones de navegador · Office Add-ins</li>
+    <li><strong>Backend:</strong> Node.js/Express · APIs REST · Ktor · Exposed · WebSockets · mensajería orientada a eventos</li>
+    <li><strong>Datos:</strong> PostgreSQL · MySQL · ClickHouse · Redis · Flyway · optimización de consultas</li>
+    <li><strong>Infraestructura:</strong> Docker · Kubernetes (AKS) · GitHub Actions · Helm · ArgoCD · SonarCloud</li>
+    <li><strong>IA aplicada:</strong> servidores MCP · ingeniería de contexto · validación técnica de código generado · embeddings y búsqueda semántica</li>
+  </ul>
+
+  <h2><span class="num">04</span>Contacto</h2>
+  <p>Estoy disponible para roles fullstack en Chile, remoto o híbrido en Santiago. El CV completo está en PDF y en una página.</p>
+  <div class="links">
+    <a href="mailto:f.perezlefiman@gmail.com">f.perezlefiman@gmail.com</a>
+    <a href="https://www.linkedin.com/in/fperezlefiman">LinkedIn</a>
+    <a href="Francisco-Perez-Lefiman-CV-ES.pdf">CV en PDF</a>
+    <a href="https://github.com/fperezdev">GitHub</a>
+  </div>
+
+  <footer>Servido desde GitHub Pages. Los números salen de los datos de producción del trabajo y de las evaluaciones del proyecto propio.</footer>
+
+</div>
+</body>
+</html>
