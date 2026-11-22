@@ -27,7 +27,7 @@
   .wrap p, .wrap li, .wrap h1, .wrap h2, .wrap h3, .lead{max-width:34rem}
   .meta{
     font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
-    font-size:11px; color:var(--dim); letter-spacing:.05em; text-transform:uppercase;
+    font-size:11.5px; color:var(--soft); letter-spacing:.05em; text-transform:uppercase;
     display:flex; flex-wrap:wrap; gap:0 10px; margin-bottom:16px;
   }
   .meta span+span::before{content:"·"; margin-right:10px; color:var(--line)}
@@ -55,9 +55,10 @@
   }
   .card h3{margin-top:0}
   .stack{
-    font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:12.5px; color:var(--dim);
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:12.5px; color:var(--soft);
     letter-spacing:.03em; margin:0 0 10px;
   }
+  .stack span+span::before{content:"·"; margin:0 7px; color:var(--line)}
   .nums{
     display:flex; flex-wrap:wrap; gap:8px; margin:12px 0 4px; padding:0; list-style:none;
   }
@@ -85,7 +86,7 @@
   <div class="meta"><span>Portfolio</span><span>Chile · remoto</span><span>Disponible</span></div>
 
   <h1>Francisco Pérez Lefiman</h1>
-  <p class="role">Software Engineer fullstack — <b>React/TypeScript</b>, <b>Node.js</b> y backend <b>Kotlin/JVM</b>. Sistemas con IA en producción.</p>
+  <p class="role">Software Engineer fullstack — <b>React/TypeScript</b>, <b>Node.js</b> y <span style="white-space:nowrap">backend <b>Kotlin/JVM</b></span>. Sistemas con IA en producción.</p>
   <p class="where">4 años y 7 meses construyendo producto en una plataforma SaaS B2B · Ingeniero en Computación e Informática (UNAB)</p>
 
   <p class="lead">Escribo sistemas que corren en producción y los mido. Estos casos usan los números reales del trabajo, no estimaciones: cuántos PDFs salieron, cuántos envíos se corrigieron, cuántas cuentas atiende la extensión.</p>
@@ -173,5 +174,16 @@
   <footer>Servido desde GitHub Pages. Los números salen de los datos de producción del trabajo y de las evaluaciones del proyecto propio.</footer>
 
 </div>
+<script>
+  document.querySelectorAll('.stack').forEach(function(el){
+    var partes = el.textContent.split('·').map(function(t){ return t.trim(); }).filter(Boolean);
+    el.textContent = '';
+    partes.forEach(function(t){
+      var s = document.createElement('span');
+      s.textContent = t;
+      el.appendChild(s);
+    });
+  });
+</script>
 </body>
 </html>
