@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Francisco Pérez Lefiman — Software Engineer fullstack</title>
-<meta name="description" content="Software Engineer fullstack: React/TypeScript, Node.js y backend Kotlin/JVM. Casos con números medidos y sistemas con IA en producción.">
+<meta name="description" content="Software Engineer fullstack: React/TypeScript, Node.js y backend Kotlin/JVM. Casos con números medidos, sistemas con IA en producción y código público con ADRs.">
 <meta property="og:title" content="Francisco Pérez Lefiman — Software Engineer fullstack">
-<meta property="og:description" content="Casos con números medidos: reportes masivos, diagnóstico de un defecto de SLA, extensión de correo en producción y automatización con IA.">
+<meta property="og:description" content="Casos con números medidos: reportes masivos, diagnóstico de un defecto de SLA, extensión de correo en producción y un tracker de gastos público con 17 ADRs.">
 <meta property="og:type" content="website">
 <style>
   :root{
@@ -92,7 +92,7 @@
 <body>
 <div class="wrap">
 
-  <div class="meta"><span>Portfolio</span><span>Chile · remoto</span><span>Disponible</span></div>
+  <div class="meta"><span>Casos de ingeniería</span><span>Chile · remoto o híbrido</span><span>Disponible</span></div>
 
   <div class="hero">
     <img src="foto.jpg" alt="Francisco Pérez Lefiman" width="104" height="104">
@@ -103,7 +103,7 @@
   <p class="role">Software Engineer fullstack — <b>React/TypeScript</b>, <b>Node.js</b> y <span style="white-space:nowrap">backend <b>Kotlin/JVM</b></span>. Sistemas con IA en producción.</p>
   <p class="where">4 años y 7 meses construyendo producto en una plataforma SaaS B2B · Ingeniero en Computación e Informática (UNAB)</p>
 
-  <p class="lead">Escribo sistemas que corren en producción y los mido. Estos casos usan los números reales del trabajo, no estimaciones: cuántos PDFs salieron, cuántos envíos se corrigieron, cuántas cuentas atiende la extensión.</p>
+  <p class="lead">Escribo sistemas que corren en producción y los mido. Los casos del trabajo usan números reales —cuántos PDFs salieron, cuántos envíos se corrigieron—; el código propio es público y se puede leer entero.</p>
 
   <h2><span class="num">01</span>Casos de trabajo</h2>
 
@@ -144,48 +144,65 @@
     <p><strong>Seguridad:</strong> invalidación del JWT al cerrar sesión, separación de claves de firma y verificación, cookies con flags secure/HttpOnly y sin source maps en producción.</p>
   </div>
 
-  <h2><span class="num">02</span>Proyecto propio, medido y público</h2>
+  <h2><span class="num">02</span>Código propio, público y medido</h2>
 
   <div class="card">
-    <h3>AI Automation Suite — cinco módulos con evaluación reproducible</h3>
-    <p class="stack">n8n · FastAPI · PostgreSQL · LLM · WhatsApp Cloud API · Docker Compose</p>
-    <p>Automatización para un negocio real (una clínica dental en Santiago), armada como sistema y no como scripts sueltos: cada módulo tiene su set de 30–40 casos, su medición publicada y su página de caso.</p>
-    <ul>
-      <li><strong>InvoiceFlow:</strong> facturas PDF → gastos validados. 30/30, campos 100%, mediana 2,9 ms.</li>
-      <li><strong>ReplyDesk:</strong> WhatsApp anclado a la información del negocio. 40/40, mediana 1,6 s.</li>
-      <li><strong>LeadScore:</strong> calificación con score explicable. 30/30 niveles.</li>
-      <li><strong>ReportBot:</strong> planilla de ventas → resumen escrito. 30/30, cifras exactas.</li>
+    <h3>expense-tracker: del aviso de compra al gasto validado</h3>
+    <p class="stack">Java 25 · Spring Boot · PostgreSQL · Flyway · Spring AI · Testcontainers · Cloud Run</p>
+    <p>Un aviso de compra en el correo es un gasto. Extraerlo parece un prompt; sostenerlo es un problema de <strong>idempotencia</strong>: Gmail entrega el mismo mensaje más de una vez y un modelo puede escribir un monto que no existe. El repo trae el diseño completo y la primera fase implementada, con CI en cada push.</p>
+    <ul class="nums">
+      <li>17 ADRs</li>
+      <li>9 tests de contrato</li>
+      <li>p95 44–58 ms</li>
     </ul>
-    <p><strong>La decisión de diseño:</strong> donde hay cifras, el cálculo es determinista y el LLM solo redacta. Montos, porcentajes y scores salen de funciones puras con tolerancias declaradas; el modelo no inventa números.</p>
+    <ul>
+      <li><strong>El webhook no piensa:</strong> guarda el correo crudo y recién entonces responde; un worker toma lo pendiente con <code>SKIP LOCKED</code>. Se paga con un estado intermedio que hay que poder auditar.</li>
+      <li><strong>La idempotencia es una clave única</strong> <code>(account_id, kind, source_ref)</code>, no un <code>if</code> en memoria: el mismo correo puede llegar con otro <code>historyId</code>, así que la dedupe fina va una capa arriba.</li>
+      <li><strong>El dinero no lo decide el modelo:</strong> plantillas primero, LLM como fallback y un <code>MoneyGuard</code> que exige que el monto aparezca literal en el cuerpo. Un formato nuevo queda en revisión con su motivo, no se adivina.</li>
+    </ul>
+    <p><strong>Estado honesto:</strong> fase 1 cerrada; la extracción está a medias a propósito —falta el fallback— y el roadmap publica qué gate lo bloquea. El p95 es local y reproducible en CI, no el de Cloud Run.</p>
     <div class="links">
-      <a href="https://ai.fperez.top/">Ver el sitio</a>
-      <a href="https://ai.fperez.top/case/">Leer los casos</a>
-      <a href="https://github.com/fperezdev/ai-automation-suite">Código en GitHub</a>
+      <a href="https://github.com/fperezlefiman/expense-tracker">Código, ADRs y roadmap</a>
     </div>
   </div>
 
-  <div class="note"><strong>Sobre los repositorios:</strong> el código del trabajo es privado y pertenece a la empresa. Los casos de arriba están escritos con los números que medí, sin código del empleador.</div>
+  <div class="card">
+    <h3>nexo: un orquestador de agentes con estado durable</h3>
+    <p class="stack">TypeScript · Node.js · PostgreSQL · OpenCode · Telegram</p>
+    <p>Reemplacé el agente que uso a diario por uno propio: cada turno es una fila que se puede pausar y reanudar, la memoria se recupera por significado y las skills están versionadas. Siete perfiles corren sobre él con tráfico real, y el workflow de CI corre la suite sin necesidad del motor.</p>
+    <ul class="nums">
+      <li>7 perfiles en uso diario</li>
+      <li>turnos pausables</li>
+      <li>suite en GitHub Actions</li>
+    </ul>
+    <p><strong>Trade-off:</strong> el estado durable obliga a migraciones y a un supervisor que no existiría si el turno viviera en memoria. Lo elegí porque un turno largo que se corta a la mitad no se puede retomar sin repetir el trabajo.</p>
+    <div class="links">
+      <a href="https://github.com/fperezlefiman/nexo">Código y tests</a>
+    </div>
+  </div>
+
+  <div class="note"><strong>Sobre los repositorios:</strong> el código del trabajo es privado y pertenece a la empresa; esos casos están escritos con los números que medí, sin código del empleador. El código propio es público y está completo: <code>expense-tracker</code> y <code>nexo</code>.</div>
 
   <h2><span class="num">03</span>Stack</h2>
   <ul>
-    <li><strong>Lenguajes:</strong> TypeScript/JavaScript · Kotlin · SQL · Go (ocasional) · Python (ocasional)</li>
+    <li><strong>Lenguajes:</strong> TypeScript/JavaScript · Kotlin · Java 25 · SQL · Go (ocasional) · Python (ocasional)</li>
     <li><strong>Frontend:</strong> React · Redux · Vite · Tailwind · extensiones de navegador · Office Add-ins</li>
-    <li><strong>Backend:</strong> Node.js/Express · APIs REST · Ktor · Exposed · WebSockets · mensajería orientada a eventos</li>
+    <li><strong>Backend:</strong> Node.js/Express · APIs REST · Ktor · Spring Boot · Exposed · WebSockets · mensajería orientada a eventos</li>
     <li><strong>Datos:</strong> PostgreSQL · MySQL · ClickHouse · Redis · Flyway · optimización de consultas</li>
-    <li><strong>Infraestructura:</strong> Docker · Kubernetes (AKS) · GitHub Actions · Helm · ArgoCD · SonarCloud</li>
-    <li><strong>IA aplicada:</strong> servidores MCP · ingeniería de contexto · validación técnica de código generado · embeddings y búsqueda semántica</li>
+    <li><strong>Infraestructura:</strong> Docker · Kubernetes (AKS) · GitHub Actions · Helm · ArgoCD · Cloud Run · SonarCloud</li>
+    <li><strong>IA aplicada:</strong> Spring AI · servidores MCP · structured outputs · guardrails sobre montos y cifras · embeddings y búsqueda semántica</li>
   </ul>
 
   <h2><span class="num">04</span>Contacto</h2>
-  <p>Estoy disponible para roles fullstack en Chile, remoto o híbrido en Santiago. El CV completo está en PDF y en una página.</p>
+  <p>Estoy disponible para roles fullstack o backend en Chile: remoto, híbrido o presencial en Santiago. El CV completo está en PDF.</p>
   <div class="links">
     <a href="mailto:f.perezlefiman@gmail.com">f.perezlefiman@gmail.com</a>
     <a href="https://www.linkedin.com/in/fperezlefiman">LinkedIn</a>
     <a href="Francisco-Perez-Lefiman-CV-ES.pdf">CV en PDF</a>
-    <a href="https://github.com/fperezdev">GitHub</a>
+    <a href="https://github.com/fperezlefiman">GitHub</a>
   </div>
 
-  <footer>Servido desde GitHub Pages. Los números salen de los datos de producción del trabajo y de las evaluaciones del proyecto propio.</footer>
+  <footer>Servido desde GitHub Pages. Los números del trabajo salen de producción; los del código propio, de su suite de tests y de la medición que está publicada en el repo.</footer>
 
 </div>
 <script>
